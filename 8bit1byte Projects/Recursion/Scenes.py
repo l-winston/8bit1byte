@@ -296,16 +296,31 @@ class BinarySearch(Scene):
         self.play(Transform(explanation, explanation2))
         self.play(Transform(explanation, explanation2reverse))
 
-        centers = [3, 5, 4]
+        centers = [3, 1, 0]
         ranges = [(0, 7), (4, 7), (4, 5)]
+        delete = [(0, 4), (1, 3), (0, 1)]
+        keep = [(4, 7), (0, 1), (0, 0)]
 
-        # for i in range(len(centers)):
-        #     arrow = Arrow(UP, DOWN).scale(0.75)
-        #     arrow.next_to(squares[centers[i]], UP)
-        #     self.play(Indicate(sqandnums[centers[i]]))
-        #     self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
-        #     self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT+DOWN), FadeOut(arrow))
-        #     self.play(FadeOut(nums[centers[i]]))
+        comparison = ["<", ">", "="]
+        comparator = TexMobject("?").move_to(ORIGIN+DOWN)
+
+        eleven = TexMobject("11").set_color_by_tex("11", RED).move_to(ORIGIN+RIGHT+DOWN)
+        self.play(Write(comparator), Write(eleven))
+
+        for i in range(len(centers)):
+            arrow = Arrow(UP, DOWN).scale(0.5)
+            arrow.next_to(squares[centers[i]], UP)
+            self.play(Indicate(sqandnums[centers[i]]))
+            self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
+            self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
+            self.play(FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
+            list = VGroup(*sqandnums[keep[i][0]:keep[i][1]])
+            
+            sqandnums = sqandnums[keep[i][0]:keep[i][1]]
+            squares = squares[keep[i][0]:keep[i][1]]
+            nums = nums[keep[i][0]:keep[i][1]]
+
+            self.play(ApplyMethod(list.move_to, ORIGIN+3*DOWN))
 
 
 
