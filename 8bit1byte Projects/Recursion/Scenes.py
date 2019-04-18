@@ -228,11 +228,11 @@ class BinarySearch(Scene):
 
         explanation = VGroup(line1, line2)
         explanation.arrange_submobjects(DOWN, buff=SMALL_BUFF)
-        explanation.next_to(goal, 2*DOWN)
+        explanation.next_to(goal, 3*DOWN)
 
         startbychecking = TexMobject(r"\text{Let's start by checking }", r"\text{array[n/2]}")
         startbychecking.set_color_by_tex(r"\text{array[n/2]}", BLUE)
-        startbychecking.next_to(goal, 2*DOWN)
+        startbychecking.next_to(goal, 3*DOWN)
 
         line3 = TexMobject(r"\text{Since everything to the }", r"\text{left}", r"\text{ of }", r"\text{array[n/2]}", r"\text{ is smaller than }")
         line3.set_color_by_tex_to_color_map({
@@ -251,7 +251,7 @@ class BinarySearch(Scene):
         explanation2 = VGroup(line3, line4)
         explanation2.scale(0.8)
         explanation2.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
-        explanation2.next_to(goal, 2*DOWN)
+        explanation2.next_to(goal, 3*DOWN)
 
         line5 = TexMobject(r"\text{Since everything to the }", r"\text{right}", r"\text{ of }", r"\text{array[n/2]}", r"\text{ is greater than }")
         line5.set_color_by_tex_to_color_map({
@@ -270,7 +270,7 @@ class BinarySearch(Scene):
         explanation2reverse = VGroup(line5, line6)
         explanation2reverse.scale(0.8)
         explanation2reverse.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
-        explanation2reverse.next_to(goal, 2*DOWN)
+        explanation2reverse.next_to(goal, 3*DOWN)
 
         explanation3 = TexMobject(r"\text{If }", r"\text{array[n/2]}", r" = ", r"\text{11}", r"\text{, we're done!}")
         explanation3.set_color_by_tex_to_color_map({
@@ -278,14 +278,15 @@ class BinarySearch(Scene):
             r"\text{11}" : RED
         })
         explanation3.scale(0.8)
-        explanation3.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
-        explanation3.next_to(goal, 2*DOWN)
+        explanation3.next_to(goal, 3*DOWN)
 
 
         array = [1, 2, 7, 8, 11, 12, 14]
         squares = [Rectangle(fill_opacity=1, color=GOLD_A, height=1, width=1) for i in range(7)]
         nums = [TexMobject(str(array[i])) for i in range(7)]
         nums[4].set_color_by_tex("11", RED)
+        nums[3].set_color_by_tex("8", BLUE)
+        nums[5].set_color_by_tex("12", BLUE)
 
         for i in range(1, 7):
             squares[i].next_to(squares[i-1], RIGHT/2)
@@ -322,15 +323,18 @@ class BinarySearch(Scene):
             self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
             self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT/2+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
             self.play(Transform(explanation, explanations[i]))
-            self.play(FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
+            if(i == 2):
+                self.play(FadeOut(comparator), FadeOut(eleven), FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
+            else:
+                self.play(FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
             list = VGroup(*sqandnums[keep[i][0]:keep[i][1]])
 
             sqandnums = sqandnums[keep[i][0]:keep[i][1]]
             squares = squares[keep[i][0]:keep[i][1]]
             nums = nums[keep[i][0]:keep[i][1]]
+            array = array[keep[i][0]:keep[i][1]]
 
             self.play(ApplyMethod(list.move_to, ORIGIN+3*DOWN))
-
 
 
 
