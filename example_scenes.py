@@ -57,8 +57,8 @@ class OpeningManimExample(Scene):
         self.play(
             grid.apply_function,
             lambda p: p + np.array([
-                np.sin(p[1]),
-                np.sin(p[0]),
+                p[0],
+                p[1]*2,
                 0,
             ]),
             run_time=3,

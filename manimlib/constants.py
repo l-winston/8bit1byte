@@ -11,7 +11,7 @@ elif os.path.isfile("media_dir.txt"):
 else:
     MEDIA_DIR = os.path.join(
         os.path.expanduser('~'),
-        "Dropbox (3Blue1Brown)/3Blue1Brown Team Folder"
+        "animation/manim/output"
     )
 if not os.path.isdir(MEDIA_DIR):
     MEDIA_DIR = "media"
