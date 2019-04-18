@@ -272,6 +272,15 @@ class BinarySearch(Scene):
         explanation2reverse.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
         explanation2reverse.next_to(goal, 2*DOWN)
 
+        explanation3 = TexMobject(r"\text{If }", r"\text{array[n/2]}", r" = ", r"\text{11}", r"\text{, we're done!}")
+        explanation3.set_color_by_tex_to_color_map({
+            r"\text{array[n/2]}" : BLUE,
+            r"\text{11}" : RED
+        })
+        explanation3.scale(0.8)
+        explanation3.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
+        explanation3.next_to(goal, 2*DOWN)
+
 
         array = [1, 2, 7, 8, 11, 12, 14]
         squares = [Rectangle(fill_opacity=1, color=GOLD_A, height=1, width=1) for i in range(7)]
@@ -293,8 +302,6 @@ class BinarySearch(Scene):
         self.play(Write(explanation))
         self.wait(2)
         self.play(Transform(explanation, startbychecking))
-        self.play(Transform(explanation, explanation2))
-        self.play(Transform(explanation, explanation2reverse))
 
         centers = [3, 1, 0]
         ranges = [(0, 7), (4, 7), (4, 5)]
@@ -302,9 +309,10 @@ class BinarySearch(Scene):
         keep = [(4, 7), (0, 1), (0, 0)]
 
         comparison = ["<", ">", "="]
+        explanations = [explanation, explanation2, explanation3]
         comparator = TexMobject("?").move_to(ORIGIN+DOWN)
 
-        eleven = TexMobject("11").set_color_by_tex("11", RED).move_to(ORIGIN+RIGHT+DOWN)
+        eleven = TexMobject("11").set_color_by_tex("11", RED).move_to(ORIGIN+RIGHT/2+DOWN)
         self.play(Write(comparator), Write(eleven))
 
         for i in range(len(centers)):
@@ -312,10 +320,11 @@ class BinarySearch(Scene):
             arrow.next_to(squares[centers[i]], UP)
             self.play(Indicate(sqandnums[centers[i]]))
             self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
-            self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
+            self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT/2+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
+            self.play(Transform(explanation, explanations[i]))
             self.play(FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
             list = VGroup(*sqandnums[keep[i][0]:keep[i][1]])
-            
+
             sqandnums = sqandnums[keep[i][0]:keep[i][1]]
             squares = squares[keep[i][0]:keep[i][1]]
             nums = nums[keep[i][0]:keep[i][1]]
