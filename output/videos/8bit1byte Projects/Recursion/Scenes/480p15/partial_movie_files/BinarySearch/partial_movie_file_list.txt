@@ -22,3 +22,4 @@ file '/Users/l-winston/animation/manim/output/videos/8bit1byte Projects/Recursio
 file '/Users/l-winston/animation/manim/output/videos/8bit1byte Projects/Recursion/Scenes/480p15/partial_movie_files/BinarySearch/00021.mp4'
 file '/Users/l-winston/animation/manim/output/videos/8bit1byte Projects/Recursion/Scenes/480p15/partial_movie_files/BinarySearch/00022.mp4'
 file '/Users/l-winston/animation/manim/output/videos/8bit1byte Projects/Recursion/Scenes/480p15/partial_movie_files/BinarySearch/00023.mp4'
+file '/Users/l-winston/animation/manim/output/videos/8bit1byte Projects/Recursion/Scenes/480p15/partial_movie_files/BinarySearch/00024.mp4'

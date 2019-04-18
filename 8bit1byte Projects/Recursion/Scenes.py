@@ -309,7 +309,7 @@ class BinarySearch(Scene):
         keep = [(4, 7), (0, 1), (0, 0)]
 
         comparison = ["<", ">", "="]
-        explanations = [explanation, explanation2, explanation3]
+        explanations = [explanation2, explanation2reverse, explanation3]
         comparator = TexMobject("?").move_to(ORIGIN+DOWN)
 
         eleven = TexMobject("11").set_color_by_tex("11", RED).move_to(ORIGIN+RIGHT/2+DOWN)
