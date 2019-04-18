@@ -201,6 +201,8 @@ class LinearSearch(Scene):
             self.play(FadeOut(arrow))
 
 class BinarySearch(Scene):
+    #     }", r"\text{
+
     def construct(self):
         title = TexMobject(r"\text{Binary Search}")
         title.scale(1.5)
@@ -228,18 +230,53 @@ class BinarySearch(Scene):
         explanation.arrange_submobjects(DOWN, buff=SMALL_BUFF)
         explanation.next_to(goal, 2*DOWN)
 
-        line3 = TexMobject(r"\text{We start by checking }", r"\text{array[n/2]}")
-        line3.set_color_by_tex(r"\text{array[n/2]}", BLUE)
+        startbychecking = TexMobject(r"\text{Let's start by checking }", r"\text{array[n/2]}")
+        startbychecking.set_color_by_tex(r"\text{array[n/2]}", BLUE)
+        startbychecking.next_to(goal, 2*DOWN)
 
+        line3 = TexMobject(r"\text{Since everything to the }", r"\text{left}", r"\text{ of }", r"\text{array[n/2]}", r"\text{ is smaller than }")
+        line3.set_color_by_tex_to_color_map({
+            r"\text{array[n/2]}" : BLUE,
+            r"\text{left}" : YELLOW,
+            r"\text{11}" : RED
+        })
 
-        explanation2 = VGroup(line3)
+        line4 = TexMobject(r"\text{array[n/2]}", r"\text{, if }", r"\text{array[n/2]}", r" < ", r"\text{11}", r"\text{, we know }", r"\text{11}", r"\text{ can't be on its }", r"\text{left}")
+        line4.set_color_by_tex_to_color_map({
+            r"\text{array[n/2]}" : BLUE,
+            r"\text{left}" : YELLOW,
+            r"\text{11}" : RED
+        })
+
+        explanation2 = VGroup(line3, line4)
+        explanation2.scale(0.8)
         explanation2.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
         explanation2.next_to(goal, 2*DOWN)
+
+        line5 = TexMobject(r"\text{Since everything to the }", r"\text{right}", r"\text{ of }", r"\text{array[n/2]}", r"\text{ is greater than }")
+        line5.set_color_by_tex_to_color_map({
+            r"\text{array[n/2]}" : BLUE,
+            r"\text{right}" : YELLOW,
+            r"\text{11}" : RED
+        })
+
+        line6 = TexMobject(r"\text{array[n/2]}", r"\text{, if }", r"\text{array[n/2]}", r" > ", r"\text{11}", r"\text{, we know }", r"\text{11}", r"\text{ can't be on its }", r"\text{right}")
+        line6.set_color_by_tex_to_color_map({
+            r"\text{array[n/2]}" : BLUE,
+            r"\text{right}" : YELLOW,
+            r"\text{11}" : RED
+        })
+
+        explanation2reverse = VGroup(line5, line6)
+        explanation2reverse.scale(0.8)
+        explanation2reverse.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
+        explanation2reverse.next_to(goal, 2*DOWN)
 
 
         array = [1, 2, 7, 8, 11, 12, 14]
         squares = [Rectangle(fill_opacity=1, color=GOLD_A, height=1, width=1) for i in range(7)]
         nums = [TexMobject(str(array[i])) for i in range(7)]
+        nums[4].set_color_by_tex("11", RED)
 
         for i in range(1, 7):
             squares[i].next_to(squares[i-1], RIGHT/2)
@@ -255,17 +292,28 @@ class BinarySearch(Scene):
         self.play(Transform(given, goal))
         self.play(Write(explanation))
         self.wait(2)
+        self.play(Transform(explanation, startbychecking))
         self.play(Transform(explanation, explanation2))
+        self.play(Transform(explanation, explanation2reverse))
 
         centers = [3, 5, 4]
         ranges = [(0, 7), (4, 7), (4, 5)]
 
-        for i in range(len(centers)):
-            arrow = Arrow(UP, DOWN).scale(0.75)
-            arrow.next_to(squares[centers[i]], UP)
-            self.play(Indicate(sqandnums[centers[i]]))
-            self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
-            self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+2*UP+3*LEFT))
+        # for i in range(len(centers)):
+        #     arrow = Arrow(UP, DOWN).scale(0.75)
+        #     arrow.next_to(squares[centers[i]], UP)
+        #     self.play(Indicate(sqandnums[centers[i]]))
+        #     self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
+        #     self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT+DOWN), FadeOut(arrow))
+        #     self.play(FadeOut(nums[centers[i]]))
+
+
+
+
+
+
+
+
         # for i in range(circleind+1):
         #     t3 = TexMobject(r"\text{We can easily check }", r"\text{array[" + str(i) + r"]}")
         #     t3.set_color_by_tex(r"\text{array[" + str(i) + r"]}", BLUE)
