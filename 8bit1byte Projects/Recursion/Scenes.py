@@ -311,9 +311,9 @@ class BinarySearch(Scene):
 
         comparison = ["<", ">", "="]
         explanations = [explanation2, explanation2reverse, explanation3]
-        comparator = TexMobject("?").move_to(ORIGIN+DOWN)
+        comparator = TexMobject("?").move_to(ORIGIN+DOWN).scale(1.5)
 
-        eleven = TexMobject("11").set_color_by_tex("11", RED).move_to(ORIGIN+RIGHT/2+DOWN)
+        eleven = TexMobject("11").set_color_by_tex("11", RED).scale(1.5).move_to(ORIGIN+RIGHT+DOWN)
         self.play(Write(comparator), Write(eleven))
 
         for i in range(len(centers)):
@@ -321,7 +321,7 @@ class BinarySearch(Scene):
             arrow.next_to(squares[centers[i]], UP)
             self.play(Indicate(sqandnums[centers[i]]))
             self.play(GrowArrow(arrow), Transform(squares[centers[i]], Rectangle(fill_opacity=0, color=GOLD_A, height=1, width=1).move_to(squares[centers[i]])))
-            self.play(ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT/2+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
+            self.play(ApplyMethod(nums[centers[i]].scale, 1.5), ApplyMethod(nums[centers[i]].move_to, ORIGIN+LEFT+DOWN), FadeOut(arrow), Transform(comparator, TexMobject(comparison[i]).move_to(comparator)))
             self.play(Transform(explanation, explanations[i]))
             if(i == 2):
                 self.play(FadeOut(comparator), FadeOut(eleven), FadeOut(VGroup(*sqandnums[delete[i][0]:delete[i][1]])))
